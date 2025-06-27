@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    env_file: 
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./db_dataDatabaseCreator/France_Travail_create_db.sql:/docker-entrypoint-initdb.d/database.sql
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.6.2
+    container_name: elasticsearch
+    environment:
+      - "discovery.type=single-node"
+      - "xpack.security.enabled=false"
+    ports:
+      - "${ELASTICSEARCH_PORT}:9200"
+    volumes:
+      - elastic_data:/usr/share/elasticsearch/data
+
+  sync_service:
+    build: ./sync_service
+    container_name: sync_service
+    env_file:
+      - .env
+    depends_on:
+      - mysql
+      - elasticsearch
+
+volumes:
+  mysql_data:
+  elastic_data:

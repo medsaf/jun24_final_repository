@@ -1,0 +1,12 @@
+mysql-connector-python
+pandas
+pathlib==1.0.1
+pymysql==1.1.1
+requests==2.31.0
+sqlalchemy
+uvicorn==0.33.0
+fastapi==0.115.11
+elasticsearch==9.0.0
+python-dotenv
+joblib==1.2.0
+#scikit-learn==1.2.2

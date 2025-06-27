@@ -1,0 +1,8 @@
+mysql-connector==2.2.9
+pandas==2.1.4
+pathlib==1.0.1
+pymysql==1.1.1
+requests==2.31.0
+sqlalchemy==2.0.25
+elasticsearch==8.10.0
+setuptools==67.8.0
